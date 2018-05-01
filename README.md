@@ -1,103 +1,70 @@
-Get Started
-=====
 
-> 鉴于目前 ISSUE 较多而维护时间较少，且在进行后续的版本更新，目前暂时关闭 ISSUE，若社区有人跟进，欢迎和我们联系。重复的问题，请参阅常见问题的 [FAQ Wiki](https://github.com/fex-team/ueditor/wiki/FAQ)。
+# wangEditor
 
-## 重要安全通告：
+## 介绍
 
-1. commons-fileupload-1.3.1.jar 存在漏洞可能会导致 ddos，源代码中已经修改，使用老版本的用户，强烈推荐升级 commons-fileupload.jar 至最新版本。（2018-04-09）.
-2. UEditor 所提供的所有后端代码都仅为 DEMO 作用，切不可直接使用到生产环境中，目前已知 php 的代码会存在 ssrf 的安全漏洞。修复方式：使用最新的 Uploader.class [code](https://github.com/fex-team/ueditor/blob/dev-1.5.0/php/Uploader.class.php) .
+**wangEditor** —— 轻量级 web 富文本编辑器，配置方便，使用简单。支持 IE10+ 浏览器。
 
-## ueditor富文本编辑器介绍
+- 官网：[www.wangEditor.com](http://www.wangeditor.com/)
+- 文档：[www.kancloud.cn/wangfupeng/wangeditor3/332599](http://www.kancloud.cn/wangfupeng/wangeditor3/332599)
+- 源码：[github.com/wangfupeng1988/wangEditor](https://github.com/wangfupeng1988/wangEditor) （欢迎 star）
 
-UEditor是由百度web前端研发部开发所见即所得富文本web编辑器，具有轻量，可定制，注重用户体验等特点，开源基于MIT协议，允许自由使用和修改代码。
+![图片](http://images2015.cnblogs.com/blog/138012/201705/138012-20170530202905633-1840158981.png)
 
-## 1 入门部署和体验
+*查看 v2 版本的代码和文档点击[这里](https://github.com/wangfupeng1988/wangEditor/tree/v2)*
 
-### 1.1 下载编辑器
 
-1. `git clone ` 仓库
-2. `npm install` 安装依赖（如果没有安装 grunt , 请先在全局安装 grunt）
-3. 在终端执行 `grunt default`
+## 下载
 
-### 1.2 创建demo文件
-解压下载的包，在解压后的目录创建demo.html文件，填入下面的html代码
+- 直接下载：[https://github.com/wangfupeng1988/wangEditor/releases](https://github.com/wangfupeng1988/wangEditor/releases)
+- 使用`npm`下载：`npm install wangeditor` （注意 `wangeditor` 全部是**小写字母**）
+- 使用`bower`下载：`bower install wangEditor` （前提保证电脑已安装了`bower`）
+- 使用CDN：[//unpkg.com/wangeditor/release/wangEditor.min.js](https://unpkg.com/wangeditor/release/wangEditor.min.js)
 
-```html
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-	<meta charset="UTF-8">
-	<title>ueditor demo</title>
-</head>
-<body>
-	<!-- 加载编辑器的容器 -->
-	<script id="container" name="content" type="text/plain">这里写你的初始化内容</script>
-	<!-- 配置文件 -->
-	<script type="text/javascript" src="ueditor.config.js"></script>
-	<!-- 编辑器源码文件 -->
-	<script type="text/javascript" src="ueditor.all.js"></script>
-	<!-- 实例化编辑器 -->
-	<script type="text/javascript">
-	    var ue = UE.getEditor('container');
-	</script>
-</body>
-</html>
-```
 
-### 1.3 在浏览器打开demo.html
+## 使用
 
-如果看到了下面这样的编辑器，恭喜你，初次部署成功！
-
-![部署成功](http://fex.baidu.com/ueditor/doc/images/demo.png)
-
-### 1.4 传入自定义的参数
-
-编辑器有很多可自定义的参数项，在实例化的时候可以传入给编辑器：
 ```javascript
-var ue = UE.getEditor('container', {
-    autoHeight: false
-});
+var E = window.wangEditor
+var editor = new E('#div1')
+editor.create()
 ```
 
-配置项也可以通过ueditor.config.js文件修改，具体的配置方法请看[前端配置项说明](http://fex.baidu.com/ueditor/#start-config1.4 前端配置项说明.md)
 
-### 1.5 设置和读取编辑器的内容
+## 运行 demo
 
-通getContent和setContent方法可以设置和读取编辑器的内容
-```javascript
-var ue = UE.getEditor();
-//对编辑器的操作最好在编辑器ready之后再做
-ue.ready(function(){
-    //设置编辑器的内容
-    ue.setContent('hello');
-    //获取html内容，返回: <p>hello</p>
-    var html = ue.getContent();
-    //获取纯文本内容，返回: hello
-    var txt = ue.getContentTxt();
-});
-```
+- 下载源码 `git clone git@github.com:wangfupeng1988/wangEditor.git`
+- 安装或者升级最新版本 node（最低`v6.x.x`）
+- 进入目录，安装依赖包 `cd wangEditor && npm i`
+- 安装包完成之后，windows 用户运行`npm run win-example`，Mac 用户运行`npm run example`
+- 打开浏览器访问[localhost:3000/index.html](http://localhost:3000/index.html)
+- 用于 React、vue 或者 angular 可查阅[文档](http://www.kancloud.cn/wangfupeng/wangeditor3/332599)中[其他](https://www.kancloud.cn/wangfupeng/wangeditor3/335783)章节中的相关介绍
 
-ueditor的更多API请看[API 文档](http://ueditor.baidu.com/doc "ueditor API 文档")
+## 交流
 
-## 2 详细文档
+### QQ 群
 
-ueditor 官网：[http://ueditor.baidu.com](http://ueditor.baidu.com "ueditor 官网")
+以下 QQ 群欢迎加入交流问题（可能有些群已经满员）
 
-ueditor API 文档：[http://ueditor.baidu.com/doc](http://ueditor.baidu.com/doc "ueditor API 文档")
+- 164999061
+- 281268320
 
-ueditor github 地址：[http://github.com/fex-team/ueditor](http://github.com/fex-team/ueditor "ueditor github 地址")
+### 提问
 
-ueditor 第三方插件贡献 wiki : [第三方插件贡献规范](http://ueditor.baidu.com/website/thirdproject.html)
+注意，作者只受理以下几种提问方式，其他方式直接忽略
 
-ueditor 贡献代码规范（javascript）： [javascript规范](https://github.com/fex-team/styleguide/blob/master/javascript.md)
+- 直接在 [github issues](https://github.com/wangfupeng1988/wangEditor/issues) 提交问题
+- 去[知乎](https://www.zhihu.com/)提问，并邀请[作者](https://www.zhihu.com/people/wang-fu-peng-54/activities)来回答
+- 去[segmentfault](https://segmentfault.com)提问，并邀请[作者](https://segmentfault.com/u/wangfupeng1988)来回答
 
-## 3 第三方贡献
+每次升级版本修复的问题记录在[这里](./ISSUE.md)
 
-ueditor for nodejs 参考[https://github.com/netpi/ueditor](https://github.com/netpi/ueditor)
+## 关于作者
 
-## 4 联系我们
+- 关注作者的博客 - 《[深入理解javascript原型和闭包系列](http://www.cnblogs.com/wangfupeng1988/p/4001284.html)》《[深入理解javascript异步系列](https://github.com/wangfupeng1988/js-async-tutorial)》《[换个思路学习nodejs](https://github.com/wangfupeng1988/node-tutorial)》《[CSS知多少](http://www.cnblogs.com/wangfupeng1988/p/4325007.html)》 
+- 学习作者的教程 - 《[前端JS高级面试](https://coding.imooc.com/class/190.html)》《[前端JS基础面试题](http://coding.imooc.com/class/115.html)》《[React.js模拟大众点评webapp](http://coding.imooc.com/class/99.html)》《[zepto设计与源码分析](http://www.imooc.com/learn/745)》《[json2.js源码解读](http://study.163.com/course/courseMain.htm?courseId=691008)》
 
-email：[ueditor@baidu.com](mailto://email:ueditor@baidu.com "发邮件给ueditor开发组")
+如果你感觉有收获，欢迎给我打赏 ———— 以激励我更多输出优质开源内容
 
-issue：[github issue](http://github.com/fex-team/ueditor/issues "ueditor 论坛")
+![图片](https://camo.githubusercontent.com/e1558b631931e0a1606c769a61f48770cc0ccb56/687474703a2f2f696d61676573323031352e636e626c6f67732e636f6d2f626c6f672f3133383031322f3230313730322f3133383031322d32303137303232383131323233373739382d313530373139363634332e706e67)
+
