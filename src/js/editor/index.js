@@ -12,6 +12,7 @@ import UploadImg from './upload/upload-img.js'
 import { arrForEach, objForEach } from '../util/util.js'
 import { getRandom } from '../util/util.js'
 
+
 // id，累加
 let editorId = 1
 
@@ -34,7 +35,53 @@ function Editor(toolbarSelector, textSelector) {
 // 修改原型
 Editor.prototype = {
     constructor: Editor,
+    changeContainer: function (dom) {
+        // 编辑区域
+        let $textElem = $('<div></div>')
+        let $textContainerElem = $(dom)
+        const config = this.config
+        const zIndex = config.zIndex
+        let $hasTextElem = $textContainerElem.find('.w-e-text')
+        if ($hasTextElem.length > 0) {
+            $textElem = $($hasTextElem[0])
+        } else {
+            $textElem.attr('contenteditable', 'true')
+                    .css('width', '100%')
+                    .css('height', '100%')
+            let $children = $textContainerElem.children()
+            // 初始化编辑区域内容
+            if ($children && $children.length) {
+                $textElem.append($children)
+            } else {
+                $textElem.append($('<p><br></p>'))
+            }
+            // 编辑区域加入DOM
+            $textContainerElem.append($textElem)
+            $textContainerElem.addClass('w-e-text-container')
+            $textContainerElem.css('z-index', zIndex)
+            $textElem.addClass('w-e-text')
+        }
+        this.$textContainerElem = $textContainerElem
+        this.$textElem = $textElem
+        this.txt.init()
+        // 记录输入法的开始和结束
+        let compositionEnd = true
+        $textContainerElem.on('compositionstart', () => {
+            // 输入法开始输入
+            compositionEnd = false
+        })
+        $textContainerElem.on('compositionend', () => {
+            // 输入法结束输入
+            compositionEnd = true
+        })
 
+        // 绑定 onchange
+        $textContainerElem.on('click keyup', () => {
+            // 输入法结束才出发 onchange
+            compositionEnd && this.change &&  this.change()
+        })
+
+    },
     // 初始化配置
     _initConfig: function () {
         // _config 是默认配置，this.customConfig 是用户自定义配置，将它们 merge 之后再赋值

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>page editor的例子</title>
+  <link rel="stylesheet" href="./release/wangEditor.min.css">
+  <style>
+    .page {
+      border: 1px solid #bfbfbf;
+      padding: 10px;
+      margin: 20px !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="Toolbar">
+
+  </div>
+  <div class="page" id="one">
+
+  </div>
+  <div class="page" id="two">
+
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script src="./release/wangEditor.min.js"></script>
+  <script>
+    var E = window.wangEditor
+    var editor = new E('#Toolbar', '#one');
+    editor.create();
+    var pages = document.getElementsByClassName('page');
+    $('.page').on('click', function() {
+      editor.changeContainer(this);
+    });
+  </script>
+</body>
+</html>
